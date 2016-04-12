@@ -33,7 +33,7 @@ Week 2:
      `console.log(myDate.isToday()); // true`
      
   3. You will need to use the Date constructor as well as several of its methods to implement this module.
-  4. Anytime a method is called that needs to access your internally stored date, you'll want to make sure you've instantiated it first. Your module should not start out with this date being set to anything yet. If it hasn't yet been instantiated, instantiate it then (this is a good place to use a "private" method. If it has already been instantiated, don't re-instantiate it (with the exception of setDate which should instantiate your date again based on how it's called (see sample usage above.)
+  4. Anytime a method is called that needs to access your internally stored date, you'll want to make sure you've instantiated it first. Your module should not start out with this date being set to anything yet. If it hasn't yet been instantiated, instantiate it then (this is a good place to use a "private" method.) If it has already been instantiated, don't re-instantiate it (with the exception of setDate which should instantiate your date again based on how it's called (see sample usage above.)
   
   5. In your module file, assign the return value of your module to a global variable (e.g. `myObj`). 
   
