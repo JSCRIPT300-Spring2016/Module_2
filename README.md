@@ -13,7 +13,8 @@ Week 2:
      b. **getDate** - allows the internally stored date to be returned to the user in one of two formats: as milliseconds after "epoch" or as a date string in the following format: "[Month] [date], [year]". This method should take an options parameter that specifies a format property, with a value of "milliseconds" or "formatted". If the options argument is ommited, default to milliseconds. Sample usage:  
 
     `myDate.getDate({ format: "milliseconds" });`  
-    `myDate.getDate({ format: "formatted" });`
+    `myDate.getDate({ format: "formatted" });`  
+    `myDate.getDate();`  
     
      c. **getDayName** - returns the name of the day to be returned for the internally stored date - e.g. "Tuesday", or "Wednesday". This method takes no parameters. Sample usage:  
      
