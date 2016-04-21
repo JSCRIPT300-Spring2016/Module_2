@@ -2,20 +2,19 @@
 // set a variable for the date using built in js date function
 // setDate is a method that allows the value of the date variable to be changed by user input
 // user enters a new date which is saved to variable
-
+var myDate = new Date();
 var foo = (function iife() {
 
-    function setDate() {
-       var myDate = new Date();
-       var userInputDate;
-       if (typeof userInputDate === 'undefined') {
-       		return myDate;
-       }
-       	else {
-       		myDate = userInputDate;
+  function setDate() {
+    var userInputDate;
+    if (typeof userInputDate === 'undefined') {
+      return myDate;
+    }
+    else {
+      myDate = userInputDate;
 
-       		return myDate;
-       	};
+      return myDate;
+    };
        }
     
 
@@ -42,8 +41,12 @@ var foo = (function iife() {
 
 
     return {
-        bar: bar,
-        baz: baz
+        setDate: myDate,
+        getDate: myDate,
+        getDayName: getDayName,
+        getMonthName: getMonthName,
+        isFuture: isFuture,
+        isToday: isToday
     };
 })();
 
