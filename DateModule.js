@@ -1,7 +1,9 @@
 //coder: Katja Borchert
 
 //A Date Utility Module in the "Revealing Pattern Module" format
+/* eslint-disable no-unused-vars */
 var myObj = (function iife() {
+/* eslint-enable no-unused-vars */
 
   //private variables:
   var date = null;
