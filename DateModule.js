@@ -1,7 +1,7 @@
 //coder: Katja Borchert
 
 //A Date Utility Module in the "Revealing Pattern Module" format
-var myDate = (function iife() {
+var myObj = (function iife() {
 
   //private variables:
   var date = null;
@@ -176,7 +176,7 @@ var myDate = (function iife() {
     }
   }
   
-  var myObj={
+  return {
     setDate: setDate,
     getDate: getDate,
     getDayName: getDayName,
@@ -184,6 +184,5 @@ var myDate = (function iife() {
     isFuture: isFuture,
     isToday: isToday
   };
-  
-  return myObj;
+
 })();
