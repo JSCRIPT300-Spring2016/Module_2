@@ -1,17 +1,17 @@
-var myObj = { function(){
+var myObj = (function iife(){
 
 		//sets the day of the month to the date object
 		function setDate(){
 			var sd = new Date();
-			sd.setDate(15);
-		};
+			return sd.setDate(15);
+		}
 
 		//returns the day of the month (from 1 to 31) for the specified date.
 		function getDate(){
 			var d = new Date();
-			d.getDate({ format: "formatted" });
+			return d.getDate({ format: "formatted" });
             
-		};
+		}
 
 		//method returns the day of the week (from 0 to 6) for the specified date.
 		function getDayName(){
@@ -25,8 +25,8 @@ var myObj = { function(){
 			weekday[5] = "Friday";
 			weekday[6] = "Saturday";
 			var gda = d.getDay();
-			var n = weekday[gda]; 
-		};
+			return weekday[gda]; 
+		}
 
 		//returns the month (from 0 to 11) for the specified date, according to local time.
 		function getMonthName(){
@@ -45,25 +45,23 @@ var myObj = { function(){
 			month[10] = "November";
 			month[11] = "December";
 			var gm = d.getMonth();
-			var m = month[gm];
-		};
+			return month[gm];
+		}
 
-		function isFuture(){
-
-		};
-
-		function isToday(){
-
-		};
+		//function isFuture(){
+        //  
+		//};
+        //
+		//function isToday(){
+        //  
+		//};
 		return {
-			//setDate: setDate,
+			setDate: setDate,
 			getDate: getDate,
 			getDayName: getDayName,
 			getMonthName: getMonthName,
-			isFuture: isFuture,
-			isToday: isToday,
+			//isFuture: isFuture,
+			//isToday: isToday,
 		};
 		
-	}
-    //end life
-};//end myObj
+	})();
