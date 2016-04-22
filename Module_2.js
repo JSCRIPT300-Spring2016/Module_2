@@ -26,7 +26,6 @@ var timeKeeper = ( function () {
   function __checkDate(){
 
     if ( date instanceof Date ) {
-
       return;
     } else {
       date  = new Date();
@@ -42,7 +41,6 @@ var timeKeeper = ( function () {
       } else if ( isNaN(d) === false ) {
         date = new Date( d );
       } else {
-
         return;
       }
     } else {
@@ -57,18 +55,14 @@ var timeKeeper = ( function () {
 
     if ( typeof f === 'object' ) {
       if ( f.format === 'milliseconds' ) {
-
         return Date.parse( date );
       } else if ( f.format === 'formatted' ) {
-
         return getMonthName() + ' ' + date.getDate() + ', ' +
             date.getFullYear();
       } else {
-
         return;
       }
     } else {
-
       return Date.parse( date );
     }
   }
@@ -97,10 +91,8 @@ var timeKeeper = ( function () {
     __checkDate();
 
     if ( dateNow > date ) {
-
       return false;
     } else {
-
       return true;
     }
   }
@@ -123,10 +115,8 @@ var timeKeeper = ( function () {
     dateYr = date.getFullYear();
 
     if ( nowMon === dateMon && nowDay === dateDay && nowYr === dateYr ) {
-
       return true;
     } else {
-
       return false;
     }
   }
