@@ -16,7 +16,8 @@ module.exports = {
             "error"
         ],
         "no-unused-vars": [
-            "error"
+            2, 
+            {"vars": "local"}
         ],
         "eqeqeq": [
             "error"
@@ -47,4 +48,5 @@ module.exports = {
         "newline-before-return": [
             "error"
         ]
+    }
 };
