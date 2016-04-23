@@ -1,6 +1,6 @@
 'use strict';
 var timeMachine = (function iife() {
-  var date = new Date();
+
   var month = new Array(12);
   month[0] = 'January';
   month[1] = 'February';
@@ -24,16 +24,38 @@ var timeMachine = (function iife() {
   weekday [5] = 'Friday';
   weekday [6] = 'Saturday';
 
-  /*will make sure input for var date is a date if not,
-    it will force it to become so
-  function setDate(dateInput) {
-    if (dateInput === Date) {
-      date = new Date(dateInput);
-    } else {
-     date = new Date();
+  var date = null;
+
+  function setDate(d) {
+    if ( d instanceof Date ) {
+
+      //testing where d is
+      //console.log('in instnce of Date: ' + d);
+      date = d;
+
+      return date;
     }
-    return;
-  }*/
+    else if ( d === undefined ) {
+      date = new Date();
+      //console.log('in else if: ' + d);
+
+      return date;
+    }
+    else{
+      date = new Date(d);
+      //console.log('in else: ' + d);
+
+      return date;
+    }
+  }
+
+  function isFuture() {
+    if (date > Date.now()){
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   function getDayName() {
     return weekday[ date.getDay() ];
@@ -44,11 +66,11 @@ var timeMachine = (function iife() {
   }
 
   return {
-    //setDate: setDate,
+    setDate: setDate,
     getDayName: getDayName,
-    getMonthName: getMonthName
+    getMonthName: getMonthName,
+    isFuture: isFuture
   };
 })();
 
-timeMachine;
-
+timeMachine();
