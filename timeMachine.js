@@ -26,34 +26,49 @@ var timeMachine = (function iife() {
 
   var date = null;
 
-  function setDate(d) {
-    if ( d instanceof Date ) {
-
-      //testing where d is
-      //console.log('in instnce of Date: ' + d);
-      date = d;
-
-      return date;
-    }
-    else if ( d === undefined ) {
+  function makeDate() {
+    if (date === null) {
       date = new Date();
-      //console.log('in else if: ' + d);
-
-      return date;
-    }
-    else{
-      date = new Date(d);
-      //console.log('in else: ' + d);
 
       return date;
     }
   }
 
-  function isFuture() {
-    if (date > Date.now()){
-      return true;
-    } else {
-      return false;
+  function setDate( dateInput ) {
+    if ( dateInput instanceof Date ) {
+
+      //testing where dateInput is
+      //console.log('in instnce of Date: ' + dateInput);
+      date = dateInput;
+
+      return date;
+    }
+    else if ( dateInput === undefined ) {
+      date = new Date();
+      //console.log('in else if: ' + dateInput);
+
+      return date;
+    }
+    else{
+      date = new Date(dateInput);
+      //console.log('in else: ' + dateInput);
+
+      return date;
+    }
+  }
+
+  function getDate(formatRequest){
+
+    //this if statement is not quite right yet
+    if (date === null){
+      date = makeDate();
+    }
+    if (formatRequest.format === 'formatted') {
+      return month [ date.getMonth() ] + ' ' + date.getDate() +
+       ', ' + date.getFullYear();
+    }
+    else if (formatRequest.format === 'milliseconds') {
+      return date.getTime();
     }
   }
 
@@ -65,12 +80,20 @@ var timeMachine = (function iife() {
     return month[ date.getMonth() ];
   }
 
+  function isFuture() {
+    if (date > Date.now()){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return {
     setDate: setDate,
+    getDate: getDate,
     getDayName: getDayName,
     getMonthName: getMonthName,
     isFuture: isFuture
   };
 })();
-
 timeMachine();
