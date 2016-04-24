@@ -1,7 +1,7 @@
 'use strict';
-var timeMachine = (function iife() {
+var timeMachine = ( function iife() {
 
-  var month = new Array(12);
+  var month = new Array( 12 ) ;
   month[0] = 'January';
   month[1] = 'February';
   month[2] = 'March';
@@ -15,7 +15,7 @@ var timeMachine = (function iife() {
   month[10] = 'November';
   month[11] = 'December';
 
-  var weekday = new Array (7);
+  var weekday = new Array( 7 );
   weekday [0] = 'Sunday';
   weekday [1] = 'Monday';
   weekday [2] = 'Tuesday';
@@ -24,64 +24,78 @@ var timeMachine = (function iife() {
   weekday [5] = 'Friday';
   weekday [6] = 'Saturday';
 
-  var date = null;
+  var internalDate = null;
 
-  function makeDate() {
-    if (date === null) {
-      date = new Date();
+  function dateInstantiate() {
+    if ( internalDate === null ) {
+      internalDate = new Date();
 
-      return date;
+      return internalDate;
     }
   }
 
   function setDate( dateInput ) {
+    dateInstantiate();
+
     if ( dateInput instanceof Date ) {
+      internalDate = dateInput;
 
-      //testing where dateInput is
-      //console.log('in instnce of Date: ' + dateInput);
-      date = dateInput;
-
-      return date;
+      return internalDate;
     }
     else if ( dateInput === undefined ) {
-      date = new Date();
-      //console.log('in else if: ' + dateInput);
+      internalDate = new Date();
 
-      return date;
+      return internalDate;
     }
     else{
-      date = new Date(dateInput);
-      //console.log('in else: ' + dateInput);
+      internalDate = new Date( dateInput );
 
-      return date;
+      return internalDate;
     }
   }
 
-  function getDate(formatRequest){
+  function getDate( formatRequest ){
+    dateInstantiate();
 
-    //this if statement is not quite right yet
-    if (date === null){
-      date = makeDate();
+    if ( formatRequest === undefined) {
+      return ( internalDate.getTime() );
     }
-    if (formatRequest.format === 'formatted') {
-      return month [ date.getMonth() ] + ' ' + date.getDate() +
-       ', ' + date.getFullYear();
+    else if ( formatRequest.format === 'formatted' ) {
+      return month [ internalDate.getMonth() ] + ' ' + internalDate.getDate() +
+       ', ' + internalDate.getFullYear();
     }
-    else if (formatRequest.format === 'milliseconds') {
-      return date.getTime();
+    else if ( formatRequest.format === 'milliseconds') {
+      return internalDate.getTime();
     }
   }
 
   function getDayName() {
-    return weekday[ date.getDay() ];
+    dateInstantiate();
+
+    return weekday[ internalDate.getDay() ];
   }
 
   function getMonthName() {
-    return month[ date.getMonth() ];
+    dateInstantiate();
+
+    return month[ internalDate.getMonth() ];
   }
 
   function isFuture() {
-    if (date > Date.now()){
+    dateInstantiate();
+
+    if ( internalDate > Date.now() ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function isToday() {
+    dateInstantiate();
+    var rightNow = Date.now();
+    var establishedInternalDate = getDate();
+    if ( establishedInternalDate === rightNow ) {
       return true;
     } else {
       return false;
@@ -93,7 +107,7 @@ var timeMachine = (function iife() {
     getDate: getDate,
     getDayName: getDayName,
     getMonthName: getMonthName,
-    isFuture: isFuture
+    isFuture: isFuture,
+    isToday: isToday
   };
 })();
-timeMachine();
