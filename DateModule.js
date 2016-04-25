@@ -7,6 +7,10 @@ var myObj = (function iife() {
 
   //private variables:
   var date = null;
+  var months = ['January', 'February', 'March', 'April', 'May',
+  'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+  'Thursday', 'Friday', 'Saturday'];
   
   //private function: date instantiation
   function _initDate(){
@@ -57,13 +61,12 @@ var myObj = (function iife() {
     }
 	
 	/*ensure that arguments are of the correct format: milliseconds or formatted
-	(if 'format' is undefined: make an alert)*/
-    if (objFormat.format === undefined){
-      alert('undefined format handed in');
-    } else if (objFormat.format ==='milliseconds'){
+	(if 'format' is unknown: make an alert)*/
+    if (objFormat.format ==='milliseconds'){
       return date.getTime();
     } else if (objFormat.format ==='formatted'){
-      return date.toLocaleDateString();
+      return months[date.getMonth()] + ' ' + date.getDate() +
+      ', ' + date.getFullYear();
     } else {
       alert('unknown format handed in');
     }
@@ -77,24 +80,8 @@ var myObj = (function iife() {
     if (date === null) {
       _initDate();
     }
-    switch(date.getDay()){
-    case 0:
-      return ('Sunday');
-    case 1:
-      return ('Monday');
-    case 2:
-      return ('Tuesday');
-    case 3:
-      return ('Wednesday');
-    case 4:
-      return ('Thursday');
-    case 5:
-      return ('Friday');
-    case 6:
-      return ('Saturday');
-    default:
-      return ('problem encountered with internally stored weekday');
-    }
+	
+    return days[date.getDay()];
   }
   
   /*getMonthName(): returns the month of the internally stored date
@@ -105,34 +92,8 @@ var myObj = (function iife() {
     if (date === null) {
       _initDate();
     }
-    switch(date.getMonth()){
-    case 0:
-      return ('January');
-    case 1:
-      return ('February');
-    case 2:
-      return ('March');
-    case 3:
-      return ('April');
-    case 4:
-      return ('May');
-    case 5:
-      return ('June');
-    case 6:
-      return ('July');
-    case 7:
-      return ('August');
-    case 8:
-      return ('September');
-    case 9:
-      return ('October');
-    case 10:
-      return ('November');
-    case 11:
-      return ('December');
-    default:
-      return ('problem encountered with internally stored month');
-    }
+	
+    return months[date.getMonth()];
   }
   
   /*function checks if internally stored date is in the future
@@ -169,7 +130,7 @@ var myObj = (function iife() {
     } else {
       var compDate = new Date();
       var localeDate = compDate.toLocaleDateString();
-      var tempDate = getDate({ format:'formatted' });
+      var tempDate = date.toLocaleDateString();
       if (tempDate === localeDate) {
         return true;
       } else {
