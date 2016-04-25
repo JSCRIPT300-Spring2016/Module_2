@@ -4,20 +4,15 @@
     "node": "true"
   },
   "globals": {
-    "google": "true",
-    "round": "true",
-    "result": "true",
-    "myDate": "true",
-    "__milliseconds": "true",
-    "__formatted": "true"
-    },
+    "myDate": "true"
+  },
   "rules": {
     "indent": ["error", 2],
     "semi": ["error", "always"],
     "no-undef": "error",
     "no-unused-vars": "error",
     "eqeqeq": "error",
-    "jsx-quotes": ["error", "prefer-single"],  //i realize it is ironic i am using double quotes here
+    "jsx-quotes": ["error", "prefer-single"],
     "no-console": "error",
     "comma-dangle": ["error", "never"],
     "max-len": ["error", 80, 2, { "ignoreUrls": true }],

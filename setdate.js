@@ -2,6 +2,12 @@
 var myDate = (function(){
 
   var __date = null;
+  var days = ["Sunday", "Monday", "Tuesday", "Wednesday",
+                "Thursday", "Friday", "Saturday"];
+  var months = ["January", "Febuary", "March", "April", "May",
+                  "June", "July", "August", "September",
+                  "October", "November", "December"];
+
 
   function __checkIfInstantiated(){
     if (__date) { return __date; } else { return new Date(); };
@@ -20,7 +26,6 @@ var myDate = (function(){
     var year = date.getFullYear();
 
     return month + " " + day + ", " + year;
-
   };
 
   function setDate(value){
@@ -31,23 +36,23 @@ var myDate = (function(){
   function getDate(options){
     options = options || { format: "milliseconds" };
     var format = options.format;
-
-    return window["__" + format]();
+    if (format === 'milliseconds') {
+      return __milliseconds();
+    } else if (format === 'formatted') {
+      return __formatted();
+    } else {
+      return "option not suppored, please input milliseconds or formated";
+    };
   };
 
   function getDayName(){
     var date = __checkIfInstantiated();
-    var days = ["Sunday", "Monday", "Tuesday", "Wednesday",
-                "Thursday", "Friday", "Saturday"];
 
     return days[date.getDay()];
   };
 
   function getMonthName(){
     var date = __checkIfInstantiated();
-    var months = ["January", "Febuary", "March", "April", "May",
-                  "June", "July", "August", "September",
-                  "October", "November", "December"];
 
     return months[date.getMonth()];
   };
