@@ -6,7 +6,7 @@ module.exports = {
         "google":true,
         "result": true,
         "module": true,
-        "round": true,
+        "round": true
     },
     "extends": "eslint:recommended",
     "rules": {
