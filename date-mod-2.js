@@ -113,4 +113,4 @@ var dateObj = (function (){
     isToday: isToday
   };
 });
-
+dateObj;
