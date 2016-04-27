@@ -3,11 +3,12 @@ var dateUtil = (function() {
 
   function initDate(){
     privateDate = new Date();
+    return privateDate;
   }
 
   function setDate(date) {
     if(typeof date === 'undefined')
-      privateDate = new Date();
+      privateDate = initDate();
     else if(date instanceof Date)
       privateDate =  date;
 	else
