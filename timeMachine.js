@@ -1,28 +1,11 @@
 'use strict';
+/* eslint-disable no-unused-vars */
 var timeMachine = ( function iife() {
-
-  var month = new Array( 12 ) ;
-  month[0] = 'January';
-  month[1] = 'February';
-  month[2] = 'March';
-  month[3] = 'April';
-  month[4] = 'May';
-  month[5] = 'June';
-  month[6] = 'July';
-  month[7] = 'August';
-  month[8] = 'September';
-  month[9] = 'October';
-  month[10] = 'November';
-  month[11] = 'December';
-
-  var weekday = new Array( 7 );
-  weekday [0] = 'Sunday';
-  weekday [1] = 'Monday';
-  weekday [2] = 'Tuesday';
-  weekday [3] = 'Wednesday';
-  weekday [4] = 'Thursday';
-  weekday [5] = 'Friday';
-  weekday [6] = 'Saturday';
+/* eslint-enable no-unused-vars */
+  var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'];
+  var weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+      'Thursday', 'Friday', 'Saturday'];
 
   var internalDate = null;
 
@@ -38,7 +21,7 @@ var timeMachine = ( function iife() {
     dateInstantiate();
 
     if ( dateInput instanceof Date ) {
-      internalDate = dateInput;
+      internalDate = new Date( dateInput );
 
       return internalDate;
     }
@@ -92,10 +75,22 @@ var timeMachine = ( function iife() {
   }
 
   function isToday() {
+    //figure out if month day and year of right now equals the
+    //month day and year of internal date
     dateInstantiate();
-    var rightNow = Date.now();
-    var establishedInternalDate = getDate();
-    if ( establishedInternalDate === rightNow ) {
+
+    var rightNow = new Date();
+    var rightNowMonth = rightNow.getMonth();
+    var rightNowDate = rightNow.getDate();
+    var rightNowYear = rightNow.getFullYear();
+    var rightNowMonthDateYear = (rightNowMonth + rightNowDate + rightNowYear);
+
+    var storedMonth = internalDate.getMonth();
+    var storedDate = internalDate.getDate();
+    var storedYear = internalDate.getFullYear();
+    var storedMonthDateYear = (storedMonth + storedDate + storedYear);
+
+    if ( rightNowMonthDateYear === storedMonthDateYear ) {
       return true;
     } else {
       return false;
