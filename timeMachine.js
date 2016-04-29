@@ -78,19 +78,11 @@ var timeMachine = ( function iife() {
     //figure out if month day and year of right now equals the
     //month day and year of internal date
     dateInstantiate();
-
     var rightNow = new Date();
-    var rightNowMonth = rightNow.getMonth();
-    var rightNowDate = rightNow.getDate();
-    var rightNowYear = rightNow.getFullYear();
-    var rightNowMonthDateYear = (rightNowMonth + rightNowDate + rightNowYear);
+    var rightNowAsString = rightNow.toDateString();
+    var internalDateAsString = internalDate.toDateString();
 
-    var storedMonth = internalDate.getMonth();
-    var storedDate = internalDate.getDate();
-    var storedYear = internalDate.getFullYear();
-    var storedMonthDateYear = (storedMonth + storedDate + storedYear);
-
-    if ( rightNowMonthDateYear === storedMonthDateYear ) {
+    if (rightNowAsString === internalDateAsString) {
       return true;
     } else {
       return false;
