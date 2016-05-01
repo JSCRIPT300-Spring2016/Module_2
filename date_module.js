@@ -1,79 +1,113 @@
-//setdate
-// set a variable for the date using built in js date function
-// setDate is a method that allows the value of the date variable to be changed by user input
-// user enters a new date which is saved to variable
-
 var myObj = ( function iife() {
-  var myDate = new Date();
+  var myDate = null;
+  var DAYS = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ];
 
-  function setDate() {
-    var userInputDate;
-    if (typeof userInputDate !== 'undefined') {
-      myDate = userInputDate;
+  var MONTHS = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  function _initializeMyDate() {
+    myDate = new Date();
+  }
+  function setDate( date ) {
+    if (typeof date === 'number' || date instanceof Date) {
+      date = new Date(date);
+    } else if (typeof date === 'undefined') {
+      _initializeMyDate();
     }
   }
 
-  function getDate( format ) {
-  	myDate.getDate({ format: "milliseconds" });
-/*
-  	  return myDate.getMilliseconds();
-    myDate.getDate({ format: "formatted" });
+  function getDate( formatObj ) {
+    var month;
+    var date;
+    var year;
 
-      return myDate.getDayName + myDate.getMonthName = myDate.getFullYear;
-    myDate.getDate();
-  */
+    if (myDate === null){
+      _initializeMyDate();
+    }
+
+    if ( typeof formatObj === 'undefined' || formatObj &&
+        formatObj.format === 'milliseconds') {
+      return myDate.getTime();
+    } else if (formatObj && formatObj.format === 'formatted'){
+      month = getMonthName();
+      date = myDate.getDate();
+      year = myDate.getFullYear;
+
+      return month + ' ' + date + ', ' + year;
+    }
   }
 
   function getDayName() {
-    var weekday = new Array(7);
-    weekday[0]=  'Sunday';
-    weekday[1] = 'Monday';
-    weekday[2] = 'Tuesday';
-    weekday[3] = 'Wednesday';
-    weekday[4] = 'Thursday';
-    weekday[5] = 'Friday';
-    weekday[6] = 'Saturday';
+    var dayIndex;
 
-    return weekday[myDate.getDay()];
+    if (myDate === null){
+      _initializeMyDate();
+    }
+
+    dayIndex = myDate.getDay();
+
+    return DAYS[dayIndex];
   }
 
   function getMonthName() {
-    var month = new Array();
-    month[0] = 'January';
-    month[1] = 'February';
-    month[2] = 'March';
-    month[3] = 'April';
-    month[4] = 'May';
-    month[5] = 'June';
-    month[6] = 'July';
-    month[7] = 'August';
-    month[8] = 'September';
-    month[9] = 'October';
-    month[10] = 'November';
-    month[11] = 'December';
+    var monthIndex;
 
-    return month[myDate.getMonth()];
-  }
-
-  function isFuture() {
-    if (myDate > Date.now){
-
-    	return true;
-    } else {
-
-    	return false;
+    if (myDate === null){
+      _initializeMyDate();
     }
+
+    monthIndex = myDate.getMonth();
+
+    return MONTHS[monthIndex];
   }
 
   function isToday() {
-    if (myDate.getDay === Date.now.getDay && mydate.getMonth ===
-   	  Date.now.getMonth && myDate.getFullYear === Date.now.getFullYear) {
+    var date;
+    var month;
+    var year;
+    var now;
 
-    	return true;
-    } else {
-
-    	return false;
+    if (myDate === null){
+      _initializeMyDate();
     }
+
+    date = myDate.getDate();
+    month = myDate.getMonth();
+    year = myDate.getYear();
+
+    return date === now.getDate() && month === now.getMonth()
+      && year === now.getYear();
+
+  }
+
+  function isFuture() {
+    var now;
+
+    if (myDate === null){
+      _initializeMyDate();
+    }
+
+    return myDate.getTime() > now.getTime();
   }
 
   return {
@@ -81,8 +115,8 @@ var myObj = ( function iife() {
     getDate: getDate,
     getDayName: getDayName,
     getMonthName: getMonthName,
-    isFuture: isFuture,
-    isToday: isToday
+    isToday: isToday,
+    isFuture: isFuture
   };
 })();
 
