@@ -1,22 +1,6 @@
 'use strict';
-var MyDate = ( function(a) {
+var myDate = ( function(a) {
   var currentDate;
-
-  function MyDate(d) {
-    if(arguments.length === 0){
-      setDate();
-    } else {
-      setDate(d);
-    }
-
-    this.setDate = setDate;
-    this.getDate = getDate;
-    this.getDayName = getDayName;
-    this.getMonthName = getMonthName;
-    this.isFuture = isFuture;
-    this.isToday = isToday;
-    this.getYear = getYear;
-  }
 
   function setDate(a) {
 
@@ -69,12 +53,22 @@ var MyDate = ( function(a) {
         (candidate.getDay() === currentDate.getDay()));
   }
 
-  return MyDate;
-
+  return {
+    setDate: setDate,
+    getDate: getDate,
+    getDayName: getDayName,
+    getMonthName: getMonthName,
+    isFuture: isFuture,
+    getYear: getYear,
+    isToday: isToday
+  };
 })();
 
-var myObj = new MyDate();
-// Testcases:
-// console.log('Date: '+ myObj.getDate());
-// console.log('Date: '+ myObj.getDate({ format: 'milliseconds' }));
-// console.log('Date: '+ myObj.getDate({ format: 'formatted' }));
+// Testcases
+// console.log('Testing getDate: ' + myDate.setDate(1462290061877));
+// console.log('Testing getDate: ' + myDate.getDate());
+// console.log('Testing getDayName: ' + myDate.getDayName());
+// console.log('Testing getMonthName: ' + myDate.getMonthName());
+// console.log('Testing isFuture: ' + myDate.isFuture());
+// console.log('Testing getYear: ' + myDate.getYear());
+// console.log('Testing isToday: ' + myDate.isToday());
