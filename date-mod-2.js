@@ -112,5 +112,5 @@ var dateObj = (function (){
     isFuture: isFuture,
     isToday: isToday
   };
-});
 dateObj;
+})();
