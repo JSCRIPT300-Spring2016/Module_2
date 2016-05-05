@@ -1,6 +1,6 @@
 'use strict';
 var myDate = ( function(a) {
-  var currentDate;
+  var currentDate = new Date();
 
   function setDate(a) {
 
@@ -15,7 +15,9 @@ var myDate = ( function(a) {
 
   function getDate(f) {
     if (arguments.length === 0){
-      return currentDate.getTime();
+      var internallyStoredDate = new Date();
+
+      return internallyStoredDate.getTime();
     }
 
     var format = f.format;
@@ -65,10 +67,10 @@ var myDate = ( function(a) {
 })();
 
 // Testcases
-// console.log('Testing getDate: ' + myDate.setDate(1462290061877));
-// console.log('Testing getDate: ' + myDate.getDate());
-// console.log('Testing getDayName: ' + myDate.getDayName());
-// console.log('Testing getMonthName: ' + myDate.getMonthName());
-// console.log('Testing isFuture: ' + myDate.isFuture());
-// console.log('Testing getYear: ' + myDate.getYear());
-// console.log('Testing isToday: ' + myDate.isToday());
+//console.log('Testing setDate: ' + myDate.setDate(1462290061877));
+//console.log('Testing getDate: ' + myDate.getDate());
+//console.log('Testing getDayName: ' + myDate.getDayName());
+//console.log('Testing getMonthName: ' + myDate.getMonthName());
+//console.log('Testing isFuture: ' + myDate.isFuture());
+//console.log('Testing getYear: ' + myDate.getYear());
+//console.log('Testing isToday: ' + myDate.isToday());
