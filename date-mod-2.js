@@ -96,7 +96,7 @@ var dateObj = (function (){
   }
   
   function isFuture(){
-    var now;
+    var now = new Date();
     if (_date === null){
       _initializeDate();
     }
