@@ -1,101 +1,151 @@
 ﻿// Emma Luk
-// Assignments 2 Using the revealing module pattern, build a Date utility module 
+// Assignments 2 Using the revealing module pattern, build a Date utility module
+var dateObj = (function () {
+    var _date = null;
 
-var myDate = (function iife() {
-    var displaysModuleDate = null;
+    var DAYS = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Saturday'
+    ];
+
+    var MONTHS = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ];
 
     //private function: date instantiation
-    function _initDate() {
-        return new Date();
+    function _initialiseDate() {
+        _date = new Date();
     }
-
     //check here that date is set: if not, initialize date to now
     function setDate(date) {
-        if (date === undefined && null) {
-            displaysModuleDate = _initDate();
-        }
-        else if (typeof date === 'number' && !isNaN(date)) {
-            displaysModuleDate = new Date(date);
-        }
-        else if (typeof date === 'object') {
-            displaysModuleDate = date;
-        }
-        else {
+        if (typeof date === 'number' || date instanceof Date) {
+            _date = new Date(date);
+        } else if (typeof date === 'undefined') {
+            _initialiseDate();
+        } else {
             console.log("sorry!! wrong type");
         }
     }
 
-    function getDate(objFormat) {
-        if (displaysModuleDate === null && undefined) {
-            displaysModuleDate = _initDate();
+    function getDate(formatObj) {
+        var month;
+        var date;
+        var year;
+
+        if (_date === null) {
+            _initialiseDate();
         }
-        if (objFormat.format === "formatted") {
-            return displaysModuleDate.getMonth() + " " + displaysModuleDate.getDate() + ", " + displaysModuleDate.getFullYear();
-        }
-        else if (objFormat.format === "milliseconds" || objFormat === undefined) {
-            return displaysModuleDate.getDate();
-        }
-        else {
-            console.log("sorry!! unknown format");
+        if (typeof formatObj === 'undefined' ||
+            formatObj && formatObj.format === 'milliseconds') {
+            return _date.getTime();
+        } else if (formatObj && formatObj.format === 'formatted') {
+            month = getMonthName();
+            date = _date.getDate();
+            year = _date.getFullYear();
+            return month + ' ' + date + ', ' + year;
+        } else {
+            console.log('sorry!! unknown format');
         }
     }
 
     function getDayName() {
-        var day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        if (displaysModuleDate === null) {
-            return day[_initDate().getDay()];
+        var dayIndex;
+        if (_date === null) {
+            _initialiseDate();
         }
+        dayIndex = _date.getDay();
 
-        return day[displaysModuleDate.getDay()];
+        return DAYS[dayIndex];
     }
 
     function getMonthName() {
-        var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        if (displaysModuleDate === null) {
-            return month[_initDate().getMonth()];
+        var monthIndex;
+        if (_date === null) {
+            _initialiseDate();
         }
-        return month[displaysModuleDate.getMonth()];
+        monthIndex = _date.getMonth();
+
+        return MONTHS[monthIndex];
+    }
+
+    // checks if internally stored date is from today
+    //If the current local date formatted as a "month/day/year"
+    function isToday() {
+        var date;
+        var month;
+        var year;
+        var now;
+
+        if (_date === null) {
+            _initialiseDate();
+        }
+        date = _date.getDate();
+        month = _date.getMonth();
+        year = _date.getYear();
+
+        return date === now.getDate() &&
+            month === now.getMonth() &&
+            year === now.getYear();
     }
 
     //check if internally stored time (in ms) > time (in ms) right now.
     //If yes, the internally set date is in the future.
     function isFuture() {
-        if (displaysModuleDate === null) {
-            displaysModuleDate = _initDate();
+        var now;
+        if (_date === null) {
+            _initialiseDate();
         }
-        if (displaysModuleDate.getTime() > Date.now()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+
+        return _date.getTime() > now.getTime();
     }
 
-    // checks if internally stored date is from today
-    //If the current local date formatted as a "month/day/year"-
-
-    function isToday() {
-        if (displaysModuleDate === null) {
-            displaysModuleDate = _initDate();
-        }
-        var currentTime = new Date();
-        if (displaysModuleDate.getFullYear() === currentTime.getFullYear() && displaysModuleDate.getDay() === currentTime.getDay()) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    var myObj = {
+    return {
         setDate: setDate,
         getDate: getDate,
         getDayName: getDayName,
         getMonthName: getMonthName,
-        isFuture: isFuture,
-        isToday: isToday
+        isToday: isToday,
+        isFuture: isFuture
     };
-
-    return myObj;
 })();
 
+//testing
+//> dateObj.getDate()
+//1462746222319
+//> dateObj.getDate({ format: 'formatted'});
+//'May 8, 2016'
+//> dateObj.getDate()
+//1462746222319
+//> dateObj.setDate()
+//undefined
+//> dateObj.getDate()
+//1462746502111
+//> dateObj.setDate(new Date ());
+//undefined
+//> dateObj.getDate()
+//1462746661220
+//> dateObj.setDate('abcd')
+//undefined
+//> dateObj.getDate()
+//1462746661220
+//> dateObj.getDate({ format: 'formatted'});
+//'May 8, 2016'
+//> dateObj.setDate(new Date ());
+//undefined
+//> dateObj.getDate({ format: 'formatted'});
+//'May 8, 2016'
