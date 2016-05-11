@@ -1,4 +1,4 @@
-var myObj = ( function iife() {
+var myDateObj = ( function iife() {
   var myDate = null;
   var DAYS = [
     'Sunday',
@@ -30,7 +30,7 @@ var myObj = ( function iife() {
   }
   function setDate( date ) {
     if (typeof date === 'number' || date instanceof Date) {
-      date = new Date(date);
+      myDate = new Date(date);
     } else if (typeof date === 'undefined') {
       _initializeMyDate();
     }
@@ -51,7 +51,7 @@ var myObj = ( function iife() {
     } else if (formatObj && formatObj.format === 'formatted'){
       month = getMonthName();
       date = myDate.getDate();
-      year = myDate.getFullYear;
+      year = myDate.getFullYear();
 
       return month + ' ' + date + ', ' + year;
     }
@@ -94,6 +94,7 @@ var myObj = ( function iife() {
     date = myDate.getDate();
     month = myDate.getMonth();
     year = myDate.getYear();
+    now = new Date();
 
     return date === now.getDate() && month === now.getMonth()
       && year === now.getYear();
@@ -106,6 +107,8 @@ var myObj = ( function iife() {
     if (myDate === null){
       _initializeMyDate();
     }
+
+    now = new Date();
 
     return myDate.getTime() > now.getTime();
   }
